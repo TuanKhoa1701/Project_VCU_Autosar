@@ -1,0 +1,100 @@
+{
+  "version": 4,
+  "configurations": [
+    {
+      "name": "STM32F103",
+      "includePath": [
+        "${workspaceFolder}",
+
+        "${workspaceFolder}/app",
+        "${workspaceFolder}/app/tasks",
+
+        "${workspaceFolder}/bsw/communication/canif",
+        "${workspaceFolder}/bsw/communication/pdur",
+        "${workspaceFolder}/bsw/communication/com",
+        "${workspaceFolder}/bsw/ecua/iohwab",
+        "${workspaceFolder}/bsw/mcal/**",
+        "${workspaceFolder}/bsw/services/ecum",
+        "${workspaceFolder}/bsw/services/os/inc",
+        "${workspaceFolder}/bsw/services/os/arch/cortexm3_stm32f1",
+
+        "${workspaceFolder}/platform/common",
+        "${workspaceFolder}/platform/bsp/cmsis",
+        "${workspaceFolder}/platform/spl/inc",
+        "${workspaceFolder}/platform/board",
+
+        "${workspaceFolder}/bsw/ecua/**",
+        "${workspaceFolder}/bsw/mcal",
+        "${workspaceFolder}/bsw/mcal/adc",
+        "${workspaceFolder}/bsw/mcal/can",
+        "${workspaceFolder}/bsw/mcal/dio",
+        "${workspaceFolder}/bsw/mcal/pwm",
+
+        "${workspaceFolder}/rte/core/inc",
+        "${workspaceFolder}/rte/core/swc_if",
+
+        "${workspaceFolder}/swc/Swc_BrakeAcq",
+        "${workspaceFolder}/swc/Swc_CmdComposer",
+        "${workspaceFolder}/swc/Swc_DriveModeMgr",
+        "${workspaceFolder}/swc/Swc_GearSelector",
+        "${workspaceFolder}/swc/Swc_BrakeAcq",
+        "${workspaceFolder}/swc/Swc_SafetyManager",
+        "${workspaceFolder}/swc/Swc_PedalAcq",
+
+        "${workspaceFolder}/cfg/**"
+      ],
+      "defines": [
+        "USE_STDPERIPH_DRIVER",
+        "STM32F10X_MD"
+      ],
+      "compilerPath": "arm-none-eabi-gcc",
+      "compilerArgs": [
+        "-mcpu=cortex-m3",
+        "-mthumb"
+      ],
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "gcc-arm",
+      "browse": {
+        "path": [
+          "${workspaceFolder}",
+
+          "${workspaceFolder}/app",
+          "${workspaceFolder}/app/tasks",
+
+          "${workspaceFolder}/bsw/communication/canif",
+          "${workspaceFolder}/bsw/communication/pdur",
+          "${workspaceFolder}/bsw/communication/com",
+          "${workspaceFolder}/bsw/ecua/iohwab",
+          "${workspaceFolder}/bsw/services/ecum",
+          "${workspaceFolder}/bsw/services/os/inc",
+
+          "${workspaceFolder}/platform/common",
+          "${workspaceFolder}/platform/bsp/cmsis",
+          "${workspaceFolder}/platform/spl/inc",
+          "${workspaceFolder}/platform/board",
+
+          "${workspaceFolder}/bsw/mcal",
+          "${workspaceFolder}/bsw/mcal/adc",
+          "${workspaceFolder}/bsw/mcal/can",
+          "${workspaceFolder}/bsw/mcal/dio",
+          "${workspaceFolder}/bsw/mcal/pwm",
+
+          "${workspaceFolder}/rte/core/inc",
+          "${workspaceFolder}/rte/swc_if",
+          
+          "${workspaceFolder}/swc/Swc_BrakeAcq",
+          "${workspaceFolder}/swc/Swc_CmdComposer",
+          "${workspaceFolder}/swc/Swc_DriveModeMgr",
+          "${workspaceFolder}/swc/Swc_GearSelector",
+          "${workspaceFolder}/swc/Swc_BrakeAcq",
+          "${workspaceFolder}/swc/Swc_SafetyManager",
+          "${workspaceFolder}/swc/Swc_PedalAcq",
+
+          "${workspaceFolder}/cfg"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    }
+  ]
+}

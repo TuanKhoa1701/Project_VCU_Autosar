@@ -1,0 +1,67 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Toolchain Debug",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "openocd",
+
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/Tools/os_test.elf",
+      "device": "STM32F103C8T6",
+      "configFiles": [
+        "interface/stlink.cfg",
+        "target/stm32f1x.cfg"
+      ],
+      "svdFile": "${workspaceFolder}/debug/STM32F103.svd",
+
+      // Tránh IDE tự halt/resume thêm
+      "runToEntryPoint": "",
+      "stopAtEntry": false,
+
+      "postLaunchCommands": [
+        "monitor reset halt",
+        "monitor mmw 0x40021018 0x00000001 0x00000001", // RCC->APB2ENR |= AFIOEN
+        "monitor mmw 0x40010004 0x00000000 0x00000700", // AFIO->MAPR.MEM_MODE = Flash
+        "load",                                         // nạp ELF
+        "monitor mww 0xE000ED08 0x08000000",            // VTOR -> Flash
+        "monitor reg msp [expr [mrw 0x08000000]]",      // SP từ vector
+        "monitor reg pc  [expr [mrw 0x08000004]]",      // PC từ vector (LSB=1)
+        "monitor arm semihosting enable",               // bật semihosting cho printf/puts
+        "monitor resume",
+        "monitor mdw 0xE000ED08 1"                      // check: phải in 0x08000000
+      ],
+
+      "postRestartCommands": [
+        "monitor reset halt",
+        "monitor mmw 0x40021018 0x00000001 0x00000001",
+        "monitor mmw 0x40010004 0x00000000 0x00000700",
+        "load",
+        "monitor mww 0xE000ED08 0x08000000",
+        "monitor reg msp [expr [mrw 0x08000000]]",
+        "monitor reg pc  [expr [mrw 0x08000004]]",
+        "monitor arm semihosting enable",
+        "monitor resume"
+      ],
+
+      // Giảm spam: có thể đổi sang "both" nếu muốn xem thêm
+      "showDevDebugOutput": "none",
+
+      // Tắt Live Watch để tránh halt liên tục; có thể bật lại nếu cần
+      "liveWatch": { "enabled": false },
+
+      // chạy make trước khi debug
+      "preLaunchTask": "Make: build",
+
+      "svdAddrGapThreshold": 16,
+
+      // Thanh ghi hiển thị
+      "registers": [
+        "r0", "r1", "r2", "r3", "r12",
+        "lr", "pc", "xPSR",
+        "sp", "msp", "psp"
+      ]
+    }
+  ]
+}
