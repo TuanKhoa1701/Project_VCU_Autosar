@@ -21,17 +21,22 @@ Cấu trúc thư mục của dự án được tổ chức như sau để phản
 Project_OSEK_VCU_Debugger/
 ├── bsw/
 │   ├── communication/
-│   │   └── canif/
+│   │   ├── canif/
+│   │   ├── com/
+│   │   └── pdur/
+│   ├── IoHwAb/
 │   ├── mcal/
 │   │   ├── adc/
 │   │   └── ... (pwm, dio, can, etc.)
 │   └── services/
+│       ├── ecum\
 │       └── os/
 ├── rte/
 │   └── core/
 └── swc/
     ├── Swc_SafetyManager/
-    └── Swc_S
+    ├── Swc_BrakeAcq/
+    └── ... (các SWC khác)
 
 ```
 
@@ -68,11 +73,23 @@ Thư mục này chứa các module phần mềm cơ sở, được chia thành c
     *   Hỗ trợ Task (Basic & Extended), Event, Alarm, Resource.
     *   Sử dụng SysTick cho time base 1ms và PendSV cho chuyển đổi ngữ cảnh.
 *   **Driver (MCAL):**
-    *   `Adc`: Driver đọc giá trị analog, hỗ trợ DMA.
+    *   `Adc` :  Driver đọc giá trị analog, hỗ trợ DMA.
+    *   `PWM` :  Driver cấp xung PWM bằng timer.
+    *   `Dio` :  Driver thao tác trực tiếp các chân IO.
+    *   `Can` :  Driver giao tiếp CAN.
+    *   `Port`:  Driver cấu hình Port
 *   **Giao tiếp (Communication):**
     *   `CanIf`: Module giao diện CAN, quản lý việc truyền/nhận PDU.
+    *   `PduR` : Module định tuyến PDU (PDU Router), chuyển tiếp dữ liệu giữa COM và CanIf.
+    *   `Com`  : Module giao tiếp, quản lý việc đóng gói (packing) và mở gói (unpacking) các tín hiệu (signal) vào/ra các PDU.
 *   **Ứng dụng (SWC):**
     *   `Swc_SafetyManager`: Module giám sát và áp đặt các ràng buộc an toàn cho xe.
+    *   `Swc_CmdComposer`: Module biên soạn và gửi đi các lệnh điều khiển VCU (như % ga, số, chế độ lái) qua bus CAN.
+    *   `Swc_BrakeAcq`: Module đọc trạng thái bàn đạp phanh (thường là tín hiệu digital) và gửi qua RTE.
+    *   `Swc_PedalAcq`: Module đọc giá trị cảm biến vị trí bàn đạp ga (thường là tín hiệu analog), chuyển đổi thành % và gửi qua RTE.
+    *   `Swc_GearSelector`: Module đọc trạng thái cần số (P, R, N, D) và gửi qua RTE.
+    *   `Swc_ModeSelector`: Module đọc chế độ lái do người dùng chọn (ECO, NORMAL) và gửi qua RTE.
+
 
 ---
 *Tác giả: Nguyễn Tuấn Khoa*
