@@ -91,5 +91,4 @@ Thư mục này chứa các module phần mềm cơ sở, được chia thành c
     *   `Swc_ModeSelector`: Module đọc chế độ lái do người dùng chọn (ECO, NORMAL) và gửi qua RTE.
 
 
----
-*Tác giả: Nguyễn Tuấn Khoa*
+
